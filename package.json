@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "./bin/solis",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jackrobertscott/solis.git"
@@ -15,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/jackrobertscott/solis/issues"
   },
-  "homepage": "https://github.com/jackrobertscott/solis#readme"
+  "homepage": "https://github.com/jackrobertscott/solis#readme",
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "commander": "^2.8.1",
+    "glob-watcher": "^2.0.0",
+    "orchestrator": "^0.3.7",
+    "vinyl-fs": "^2.1.1"
+  }
 }

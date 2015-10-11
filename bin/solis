@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+'use strict';
+
+var program = require('commander');
+var chalk = require('chalk');
+var pkg = require('../package');
+var solis = require('..');
+
+program
+  .version(pkg.version)
+  .arguments('<cmd>')
+  .option('-q, --quiet', 'do not log task operations')
+  .action(function(cmd, options) {
+    if (solis.has(cmd)) {
+      if (!options.quiet) {
+        solis.log();
+      }
+      solis.run(cmd);
+    } else {
+      console.log(chalk.red('error: command not found'));
+    }
+  });
+
+program.parse(process.argv);
