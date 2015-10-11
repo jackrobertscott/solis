@@ -1,0 +1,19 @@
+{
+  "name": "solis",
+  "version": "0.0.1",
+  "description": "Static site server and generator with built-in preprocessing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackrobertscott/solis.git"
+  },
+  "author": "Jack Scott <jack.rob.scott@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jackrobertscott/solis/issues"
+  },
+  "homepage": "https://github.com/jackrobertscott/solis#readme"
+}
