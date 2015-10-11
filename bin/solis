@@ -14,9 +14,9 @@ program
   .action(function(cmd, options) {
     if (solis.has(cmd)) {
       if (!options.quiet) {
-        solis.log();
+        // solis.log();
       }
-      solis.run(cmd);
+      solis.run(cmd, options);
     } else {
       console.log(chalk.red('error: command not found'));
     }
