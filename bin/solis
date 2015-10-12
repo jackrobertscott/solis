@@ -20,7 +20,7 @@ program
         quiet: options.quiet,
       });
     } else {
-      console.log(chalk.red('error: command not found'));
+      throw new Error('command not found');
     }
   });
 
