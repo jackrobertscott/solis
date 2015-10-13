@@ -1,6 +1,6 @@
 # Sip
 
-Sip is very similar to gulp but provides some extra functionality.
+Sip is similar to gulp but provides some extra functionality.
 
 ## API
 
@@ -30,7 +30,18 @@ Register a task.
 * `(string/array) dependencies`: the task dependencies.
 * `(function) function`: the function to execute.
 
-Note: either the dependencies or function must be included. Both may not be omitted in the same instance.
+Note: either the dependencies or function may be excluded but not both.
+
+### sip.watch(glob[, options][, dependencies][, function])
+
+Watch a set of files and executes tasks or a function on changes.
+
+* `(string/array) glob`: the glob(s) to watch.
+* `(object) options`: options for watching.
+* `(string/array) dependencies`: the task dependencies.
+* `(function) function`: the function to execute.
+
+Note: either the dependencies or function may be excluded but not both.
 
 ### sip.run(tasks[, options][, callback])
 
@@ -39,15 +50,6 @@ Run a task or set of tasks.
 * `(string/array) tasks`: tasks to run.
 * `(object) options`: options for passing to task functions.
 * `(function) callback`: the function to execute on callback.
-
-### sip.watch(glob[, options][, tasks][, function])
-
-Watch a set of files and executes tasks or a function on changes.
-
-* `(string/array) glob`: the glob(s) to watch.
-* `(object) options`: options for watching.
-* `(string/array) tasks`: the task(s) to execute on change.
-* `(function) function`: the function to execute.
 
 @see https://github.com/gulpjs/glob-watcher
 
