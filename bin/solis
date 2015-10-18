@@ -2,26 +2,78 @@
 
 'use strict';
 
+var path = require('path');
+var fs = require('fs');
 var program = require('commander');
-var chalk = require('chalk');
+var inquirer = require('inquirer');
+var async = require('async');
 var pkg = require('../package');
 var solis = require('..');
 
+program.version(pkg.version);
+
+/**
+ * Serve project files
+ */
 program
-  .version(pkg.version)
-  .arguments('<cmd>')
+  .command('serve')
+  .description('parse and render project files into browser')
   .option('-q, --quiet', 'do not log task operations')
-  .action(function(cmd, options) {
-    if (solis.has(cmd)) {
-      if (!options.quiet) {
-        // solis.log();
-      }
-      solis.run(cmd, {
-        quiet: options.quiet,
+  .action(function(options) {
+    solis.serve({
+      quiet: options.quiet,
+    });
+  });
+
+/**
+ * Generate code
+ */
+program
+  .command('gen')
+  .description('generate boilerplate files')
+  .option('-o, --output <directory>', 'directory for output of generated files')
+  .option('-t, --templates <directory>', 'directory of template modules')
+  .option('-m, --module <name>', 'name of the template module')
+  .option('-q, --quiet', 'do not log task operations')
+  .action(function(options) {
+    options.templates = (options.templates) ? path.join(process.cwd(), options.templates) : path.join(__dirname, '../templates');
+
+    var series = [
+      function(cb) {
+        var questions = require(path.join(options.templates, options.module, 'questions.json'));
+        inquirer.prompt(questions, function(answers) {
+          options.questions = answers;
+          cb();
+        });
+      },
+      function(cb) {
+        solis.generate({
+          quiet: options.quiet,
+          dest: options.output || process.cwd(),
+          src: path.join(options.templates, options.module, 'templates'),
+          module: options.module,
+          questions: options.questions,
+        });
+        cb();
+      },
+    ];
+
+    if (!options.module) {
+      series.unshift(function(cb) {
+        var choices = fs.readdirSync(options.templates);
+        inquirer.prompt([{
+          type: 'list',
+          name: 'module',
+          message: 'What do you want to generate:',
+          choices: choices,
+        }], function(answers) {
+          options.module = answers.module;
+          cb();
+        });
       });
-    } else {
-      throw new Error('command not found');
     }
+
+    async.series(series);
   });
 
 program.parse(process.argv);

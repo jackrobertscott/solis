@@ -15,4 +15,21 @@ fs.readdirSync(tdir)
     require(path.join(tdir, file));
   });
 
-module.exports = sip;
+/**
+ * Initialise solis object
+ */
+var solis = module.exports = {};
+
+/**
+ * Serve files and reload on changes
+ */
+solis.serve = function serve(opts) {
+  sip.run('serve', opts);
+};
+
+/**
+ * Generate files from templates
+ */
+solis.generate = function generate(opts) {
+  sip.run('generate', opts);
+};
