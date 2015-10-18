@@ -1,3 +1,12 @@
+# dependecies
 node_modules
 bower_components
+
+# log files
 npm-debug.log
+
+# webstorm
+.idea
+
+# visual studio code
+.vscode
