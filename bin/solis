@@ -3,10 +3,11 @@
 'use strict';
 
 var path = require('path');
-var fs = require('fs');
+var fs = require('fs-extra');
 var program = require('commander');
 var inquirer = require('inquirer');
 var async = require('async');
+var _ = require('lodash');
 var pkg = require('../package');
 var solis = require('..');
 
@@ -18,10 +19,12 @@ program.version(pkg.version);
 program
   .command('serve')
   .description('parse and render project files into browser')
+  .option('-r, --root <directory>', 'root directory of project')
   .option('-q, --quiet', 'do not log task operations')
   .action(function(options) {
     solis.serve({
-      quiet: options.quiet,
+      quiet: !!options.quiet,
+      root: options.root || process.cwd(),
     });
   });
 
@@ -40,19 +43,19 @@ program
 
     var series = [
       function(cb) {
-        var questions = require(path.join(options.templates, options.module, 'questions.json'));
+        var questions = fs.readJsonSync(path.join(options.templates, options.module, 'questions.json'));
         inquirer.prompt(questions, function(answers) {
-          options.questions = answers;
+          options.data = answers;
           cb();
         });
       },
       function(cb) {
         solis.generate({
-          quiet: options.quiet,
+          quiet: !!options.quiet,
           dest: options.output || process.cwd(),
           src: path.join(options.templates, options.module, 'templates'),
           module: options.module,
-          questions: options.questions,
+          data: options.data,
         });
         cb();
       },

@@ -19,21 +19,35 @@ fs.readdirSync(tdir)
 
 /**
  * Serve files and reload on changes
+ *
+ * @param {boolean} opts.quiet - do not log output
+ * @param {string} opts.root - the root directory of project
  */
 solis.serve = function serve(opts) {
-  sip.run('serve', _.defaults(opts, {
-    src: path.join(process.cwd(), 'src'),
-    tmp: path.join(process.cwd(), '.tmp'),
+  var file = path.join(opts.root || '.', 'solis.json');
+  var config = (fs.statSync(file).isFile()) ? fs.readJsonSync(file) : {};
+  sip.run('serve', _.defaults(opts, config, {
     quiet: false,
+    root: './',
+    src: './src',
+    tmp: './.tmp',
     sourcemaps: false,
   }));
 };
 
 /**
  * Generate files from templates
+ *
+ * @param {boolean} opts.quiet - do not log output
+ * @param {string} opts.dest - the output directory
+ * @param {string} opts.src - the template module directory
+ * @param {string} opts.module - the name of the module
+ * @param {object} opts.data - data for rendering templates
  */
 solis.generate = function generate(opts) {
   sip.run('generate', _.defaults(opts, {
     quiet: false,
+    dest: './',
+    data: {},
   }));
 };
