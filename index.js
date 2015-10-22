@@ -17,6 +17,7 @@ fs.readdirSync(tdir)
 
 /**
  * Serve files and reload on changes
+ * Configuration values imported from 'solis.json' file
  *
  * @param {boolean} opts.quiet - do not log output
  * @param {string} opts.root - the root directory of project
@@ -29,6 +30,27 @@ solis.serve = function serve(opts) {
     root: './',
     src: './src',
     tmp: './.tmp',
+    sourcemaps: false,
+    bower: false,
+  }));
+};
+
+/**
+ * Serve files and reload on changes
+ * Configuration values imported from 'solis.json' file
+ *
+ * @param {boolean} opts.quiet - do not log output
+ * @param {string} opts.root - the root directory of project
+ */
+solis.compile = function compile(opts) {
+  var file = path.join(opts.root || '.', 'solis.json');
+  var config = (fs.statSync(file).isFile()) ? fs.readJsonSync(file) : {};
+  sip.run('compile', _.defaults(opts, config, {
+    quiet: false,
+    root: './',
+    src: './src',
+    tmp: './.tmp',
+    dist: './dist',
     sourcemaps: false,
     bower: false,
   }));
