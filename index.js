@@ -30,6 +30,7 @@ solis.serve = function serve(opts) {
     src: './src',
     tmp: './.tmp',
     sourcemaps: false,
+    bower: false,
   }));
 };
 

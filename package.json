@@ -28,6 +28,7 @@
     "gulp-autoprefixer": "^3.1.0",
     "gulp-coffee": "^2.3.1",
     "gulp-if": "^2.0.0",
+    "gulp-inject": "^3.0.0",
     "gulp-jade": "^1.1.0",
     "gulp-jshint": "^1.11.2",
     "gulp-less": "^3.0.3",
@@ -40,6 +41,7 @@
     "inquirer": "^0.10.1",
     "jshint-stylish": "^2.0.1",
     "lodash": "^3.10.1",
+    "main-bower-files": "^2.9.0",
     "pretty-time": "^0.2.0",
     "vinyl-fs": "^2.1.1",
     "wrench": "^1.5.8"
