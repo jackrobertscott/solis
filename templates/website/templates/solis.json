@@ -1,0 +1,6 @@
+{
+  "src": "src",
+  "tmp": ".tmp",
+  "dist": "www",
+  "bower": true
+}
