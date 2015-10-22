@@ -1,9 +1,7 @@
-/* jshint node:true */
 'use strict';
 
 var fs = require('fs-extra');
 var path = require('path');
-var chalk = require('chalk');
 var _ = require('lodash');
 var sip = require('./lib/sip');
 var solis = module.exports = {};

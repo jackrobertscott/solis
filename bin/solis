@@ -7,7 +7,6 @@ var fs = require('fs-extra');
 var program = require('commander');
 var inquirer = require('inquirer');
 var async = require('async');
-var _ = require('lodash');
 var pkg = require('../package');
 var solis = require('..');
 
