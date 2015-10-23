@@ -4,5 +4,5 @@ block title
   Page Example
 
 block content
-  each section in data.example
-  //!= partial('./' + section + '/_partial.jade')
+  each val, key in data.example
+    != partial('example/' + key + '/_partial.jade')
