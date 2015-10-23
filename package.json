@@ -23,6 +23,7 @@
     "browser-sync": "^2.9.11",
     "commander": "^2.8.1",
     "del": "^2.0.2",
+    "end-of-stream": "^1.1.0",
     "fs-extra": "^0.24.0",
     "glob-watcher": "^2.0.0",
     "gulp-autoprefixer": "^3.1.0",
@@ -48,6 +49,7 @@
     "lodash": "^3.10.1",
     "main-bower-files": "^2.9.0",
     "pretty-time": "^0.2.0",
+    "stream-consume": "^0.1.0",
     "vinyl-fs": "^2.1.1",
     "wrench": "^1.5.8"
   },
