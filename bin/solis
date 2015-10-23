@@ -4,6 +4,7 @@
 
 var path = require('path');
 var fs = require('fs-extra');
+var gutil = require('gulp-util');
 var program = require('commander');
 var inquirer = require('inquirer');
 var async = require('async');
@@ -46,14 +47,21 @@ program
  * Generate code
  */
 program
-  .command('gen')
+  .command('gen [module]')
   .description('generate boilerplate files')
   .option('-o, --output <directory>', 'directory for output of generated files')
   .option('-t, --templates <directory>', 'directory of template modules')
-  .option('-m, --module <name>', 'name of the template module')
   .option('-q, --quiet', 'do not log task operations')
-  .action(function(options) {
+  .action(function(mod, options) {
+    options.module = mod;
     options.templates = (options.templates) ? path.join(process.cwd(), options.templates) : path.join(__dirname, '../templates');
+
+    try {
+      fs.statSync(path.join(options.templates, mod));
+    } catch (e) {
+      gutil.log('Error', gutil.colors.red(mod), 'template does not exist');
+      process.exit(1);
+    }
 
     var series = [
       function(cb) {
