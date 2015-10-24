@@ -2,5 +2,8 @@
   "src": "src",
   "tmp": ".tmp",
   "dist": "www",
-  "bower": true
+  "ignore": {
+    "coffee": true,
+    "less": true
+  }
 }
