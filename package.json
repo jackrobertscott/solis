@@ -1,6 +1,6 @@
 {
   "name": "solis",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Static site server and generator with built-in preprocessing",
   "main": "index.js",
   "scripts": {
