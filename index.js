@@ -4,6 +4,7 @@ var fs = require('fs-extra');
 var path = require('path');
 var _ = require('lodash');
 var sip = require('./lib/sip');
+var helpers = require('./lib/helpers');
 var solis = module.exports = {};
 
 /**
@@ -17,43 +18,22 @@ fs.readdirSync(tdir)
 
 /**
  * Serve files and reload on changes
- * Configuration values imported from 'solis.json' file
  *
  * @param {boolean} opts.quiet - do not log output
  * @param {string} opts.root - the root directory of project
  */
 solis.serve = function serve(opts) {
-  var file = path.join(opts.root || '.', 'solis.json');
-  var config = (fs.statSync(file).isFile()) ? fs.readJsonSync(file) : {};
-  sip.run('serve', _.defaults(opts, config, {
-    quiet: false,
-    root: './',
-    src: './src',
-    tmp: './.tmp',
-    sourcemaps: false,
-    bower: false,
-  }));
+  sip.run('serve', helpers.configure(opts));
 };
 
 /**
  * Serve files and reload on changes
- * Configuration values imported from 'solis.json' file
  *
  * @param {boolean} opts.quiet - do not log output
  * @param {string} opts.root - the root directory of project
  */
 solis.compile = function compile(opts) {
-  var file = path.join(opts.root || '.', 'solis.json');
-  var config = (fs.statSync(file).isFile()) ? fs.readJsonSync(file) : {};
-  sip.run('compile', _.defaults(opts, config, {
-    quiet: false,
-    root: './',
-    src: './src',
-    tmp: './.tmp',
-    dist: './dist',
-    sourcemaps: false,
-    bower: false,
-  }));
+  sip.run('compile', helpers.configure(opts));
 };
 
 /**
@@ -62,13 +42,8 @@ solis.compile = function compile(opts) {
  * @param {boolean} opts.quiet - do not log output
  * @param {string} opts.dest - the output directory
  * @param {string} opts.src - the template module directory
- * @param {string} opts.module - the name of the module
  * @param {object} opts.data - data for rendering templates
  */
 solis.generate = function generate(opts) {
-  sip.run('generate', _.defaults(opts, {
-    quiet: false,
-    dest: './',
-    data: {},
-  }));
+  sip.run('generate', helpers.configure(opts));
 };
