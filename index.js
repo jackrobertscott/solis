@@ -33,7 +33,7 @@ solis.serve = function serve(opts) {
  * @param {string} opts.root - the root directory of project
  */
 solis.compile = function compile(opts) {
-  sip.run('compile', helpers.configure(opts));
+  sip.run('dist', helpers.configure(opts));
 };
 
 /**
