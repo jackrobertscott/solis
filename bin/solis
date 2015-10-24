@@ -19,8 +19,8 @@ program.version(pkg.version);
 program
   .command('serve')
   .description('parse and render project files into browser')
-  .option('-r, --root <directory>', 'root directory of project')
   .option('-q, --quiet', 'do not log task operations')
+  .option('-r, --root <directory>', 'root directory of project')
   .action(function(options) {
     solis.serve({
       quiet: !!options.quiet,
@@ -34,8 +34,8 @@ program
 program
   .command('compile')
   .description('compile and minify code for distribution')
-  .option('-r, --root <directory>', 'root directory of project')
   .option('-q, --quiet', 'do not log task operations')
+  .option('-r, --root <directory>', 'root directory of project')
   .action(function(options) {
     solis.compile({
       quiet: !!options.quiet,
@@ -49,12 +49,14 @@ program
 program
   .command('deploy')
   .description('deploy files to a gh-pages branch')
-  .option('-r, --root <directory>', 'root directory of project')
   .option('-q, --quiet', 'do not log task operations')
+  .option('-r, --root <directory>', 'root directory of project')
+  .option('-c, --cname <url>', 'cname url')
   .action(function(options) {
-    solis.compile({
+    solis.deploy({
       quiet: !!options.quiet,
       root: options.root || process.cwd(),
+      cname: options.cname,
     });
   });
 
@@ -64,9 +66,9 @@ program
 program
   .command('gen [module]')
   .description('generate boilerplate files')
+  .option('-q, --quiet', 'do not log task operations')
   .option('-o, --output <directory>', 'directory for output of generated files')
   .option('-t, --templates <directory>', 'directory of template modules')
-  .option('-q, --quiet', 'do not log task operations')
   .action(function(mod, options) {
     options.module = mod;
     options.templates = (options.templates) ? path.join(process.cwd(), options.templates) : path.join(__dirname, '../templates');

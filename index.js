@@ -40,7 +40,8 @@ solis.compile = function compile(opts) {
  * Deploy files to github pages
  *
  * @param {boolean} opts.quiet - do not log output
- * @param {boolean} opts.cname - cname for deploy
+ * @param {string} opts.cname - cname for deploy
+ * @param {string} opts.root - the root directory of project
  */
 solis.deploy = function deploy(opts) {
   sip.run('deploy', helpers.configure(opts));

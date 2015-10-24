@@ -3,7 +3,12 @@
   "tmp": ".tmp",
   "dist": "www",
   "ignore": {
+    "js": false,
     "coffee": true,
+    "html": false,
+    "jade": false,
+    "css": false,
+    "sass": false,
     "less": true
   }
 }
