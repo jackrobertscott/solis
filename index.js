@@ -27,13 +27,23 @@ solis.serve = function serve(opts) {
 };
 
 /**
- * Serve files and reload on changes
+ * Compile files into distribution format
  *
  * @param {boolean} opts.quiet - do not log output
  * @param {string} opts.root - the root directory of project
  */
 solis.compile = function compile(opts) {
   sip.run('compile', helpers.configure(opts));
+};
+
+/**
+ * Deploy files to github pages
+ *
+ * @param {boolean} opts.quiet - do not log output
+ * @param {boolean} opts.cname - cname for deploy
+ */
+solis.deploy = function deploy(opts) {
+  sip.run('deploy', helpers.configure(opts));
 };
 
 /**

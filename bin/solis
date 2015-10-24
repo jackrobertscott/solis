@@ -29,11 +29,26 @@ program
   });
 
 /**
- * Serve project files
+ * Compile project files into distribution format
  */
 program
   .command('compile')
   .description('compile and minify code for distribution')
+  .option('-r, --root <directory>', 'root directory of project')
+  .option('-q, --quiet', 'do not log task operations')
+  .action(function(options) {
+    solis.compile({
+      quiet: !!options.quiet,
+      root: options.root || process.cwd(),
+    });
+  });
+
+/**
+ * Compile project files into distribution format
+ */
+program
+  .command('deploy')
+  .description('deploy files to a gh-pages branch')
   .option('-r, --root <directory>', 'root directory of project')
   .option('-q, --quiet', 'do not log task operations')
   .action(function(options) {
