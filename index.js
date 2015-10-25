@@ -31,8 +31,9 @@ solis.serve = function serve(opts) {
  *
  * @param {boolean} opts.quiet - do not log output
  * @param {string} opts.root - the root directory of project
+ * @param {boolean} opts.serve - serve compiled code
  */
-solis.compile = function compile(opts) {
+solis.build = function build(opts) {
   sip.run('dist', helpers.configure(opts));
 };
 

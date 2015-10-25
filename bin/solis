@@ -29,22 +29,24 @@ program
   });
 
 /**
- * Compile project files into distribution format
+ * Build project files into distribution format
  */
 program
-  .command('compile')
-  .description('compile and minify code for distribution')
+  .command('build')
+  .description('build and minify code for distribution')
   .option('-q, --quiet', 'do not log task operations')
   .option('-r, --root <directory>', 'root directory of project')
+  .option('-s, --serve', 'serve the compiled code')
   .action(function(options) {
-    solis.compile({
+    solis.build({
       quiet: !!options.quiet,
       root: options.root || process.cwd(),
+      serve: !!options.serve,
     });
   });
 
 /**
- * Compile project files into distribution format
+ * Deploy code to GitHub Pages
  */
 program
   .command('deploy')
