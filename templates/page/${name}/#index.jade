@@ -4,5 +4,5 @@ block title
   ${name}
 
 block content
-  each val, key in data.${section}
+  each val, key in base['${section}']
     != partial('${section}/' + key + '/_partial.jade')
