@@ -54,11 +54,13 @@ program
   .option('-q, --quiet', 'do not log task operations')
   .option('-r, --root <directory>', 'root directory of project')
   .option('-c, --cname <url>', 'cname url')
+  .option('-b, --build', 'run build before deploy')
   .action(function(options) {
     solis.deploy({
       quiet: !!options.quiet,
       root: options.root || process.cwd(),
       cname: options.cname,
+      build: !!options.build,
     });
   });
 
