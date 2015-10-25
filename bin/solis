@@ -64,8 +64,9 @@ program
  * Generate code
  */
 program
-  .command('gen [module]')
-  .description('generate boilerplate files')
+  .command('generate [module]')
+  .alias('gen')
+  .description('generate template files')
   .option('-q, --quiet', 'do not log task operations')
   .option('-o, --output <directory>', 'directory for output of generated files')
   .option('-t, --templates <directory>', 'directory of template modules')
@@ -82,17 +83,24 @@ program
 
     var series = [
       function(cb) {
-        var questions = fs.readJsonSync(path.join(options.templates, options.module, 'questions.json'));
-        inquirer.prompt(questions, function(answers) {
-          options.data = answers;
+        var modPath = path.join(options.templates, options.module, 'generate.json');
+        try {
+          var gen = fs.readJsonSync(modPath);
+          inquirer.prompt(gen.questions, function(answers) {
+            options.data = answers;
+            cb();
+          });
+        } catch (e) {
+          gutil.log('Generator questions not loaded from', gutil.colors.cyan(modPath));
+          options.data = {};
           cb();
-        });
+        }
       },
       function(cb) {
         solis.generate({
           quiet: !!options.quiet,
           dest: options.output || process.cwd(),
-          src: path.join(options.templates, options.module, 'templates'),
+          src: path.join(options.templates, options.module),
           module: options.module,
           data: options.data,
         });
