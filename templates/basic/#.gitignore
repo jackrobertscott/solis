@@ -1,9 +1,17 @@
+# dependencies
 node_modules
 bower_components
-.DS_Store
-*.log
-.idea
-.vscode
+
+# distribution
 .tmp
+.publish
 dist
 www
+
+# editors
+.idea
+.vscode
+
+# other
+.DS_Store
+*.log
