@@ -74,13 +74,6 @@ program
     options.module = mod;
     options.templates = (options.templates) ? path.join(process.cwd(), options.templates) : path.join(__dirname, '../templates');
 
-    try {
-      fs.statSync(path.join(options.templates, mod));
-    } catch (e) {
-      gutil.log('Error', gutil.colors.red(mod), 'template does not exist');
-      process.exit(1);
-    }
-
     var series = [
       function(cb) {
         var modPath = path.join(options.templates, options.module, 'generate.json');
@@ -121,6 +114,13 @@ program
           cb();
         });
       });
+    } else {
+      try {
+        fs.statSync(path.join(options.templates, mod));
+      } catch (e) {
+        gutil.log('Error', gutil.colors.red(mod), 'template does not exist');
+        process.exit(1);
+      }
     }
 
     async.series(series);

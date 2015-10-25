@@ -1,0 +1,8 @@
+extends ../_layout
+
+block title
+  ${name}
+
+block content
+  each val, key in data.${section}
+    != partial('${section}/' + key + '/_partial.jade')

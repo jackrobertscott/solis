@@ -1,0 +1,13 @@
+{
+  "questions": [{
+    "type": "input",
+    "name": "name",
+    "message": "What is the name of your page:",
+    "default": "example-name"
+  }, {
+    "type": "input",
+    "name": "section",
+    "message": "What is the name of your default section:",
+    "default": "example-section"
+  }]
+}
