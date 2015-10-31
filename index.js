@@ -2,7 +2,7 @@
 
 var fs = require('fs-extra');
 var path = require('path');
-var _ = require('lodash');
+var requireDir = require('require-dir');
 var sip = require('./lib/sip');
 var helpers = require('./lib/helpers');
 var solis = module.exports = {};
@@ -10,11 +10,9 @@ var solis = module.exports = {};
 /**
  * Load the task files.
  */
-var tdir = path.join(__dirname, 'lib/tasks');
-fs.readdirSync(tdir)
-  .forEach(function(file) {
-    require(path.join(tdir, file));
-  });
+requireDir(path.join(__dirname, 'lib/tasks'), {
+  recurse: true
+});
 
 /**
  * Serve files and reload on changes
