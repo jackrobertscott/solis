@@ -7,7 +7,9 @@ var fs = require('fs-extra');
 var gutil = require('gulp-util');
 var program = require('commander');
 var inquirer = require('inquirer');
+var download = require('download-github-repo');
 var async = require('async');
+var del = require('del');
 var pkg = require('../package');
 var solis = require('..');
 
@@ -68,27 +70,28 @@ program
  * Generate code
  */
 program
-  .command('generate [module]')
+  .command('generate <name>')
   .alias('gen')
   .description('generate template files')
+  .option('-r, --repo', 'the github repository name e.g. user-name/repo-name')
   .option('-q, --quiet', 'do not log task operations')
   .option('-o, --output <directory>', 'directory for output of generated files')
   .option('-t, --templates <directory>', 'directory of template modules')
-  .action(function(mod, options) {
-    options.module = mod;
-    options.templates = (options.templates) ? path.join(process.cwd(), options.templates) : path.join(__dirname, '../templates');
+  .action(function(name, options) {
+    options.name = name;
+    options.templates = (options.templates) ? path.resolve(process.cwd(), options.templates) : path.join(__dirname, '../templates');
 
     var series = [
       function(cb) {
-        var modPath = path.join(options.templates, options.module, 'generate.json');
+        var file = path.join(options.templates, options.name, 'generate.json');
         try {
-          var gen = fs.readJsonSync(modPath);
+          var gen = fs.readJsonSync(file);
           inquirer.prompt(gen.questions, function(answers) {
             options.data = answers;
             cb();
           });
         } catch (e) {
-          gutil.log('Generator questions not loaded from', gutil.colors.cyan(modPath));
+          gutil.log('Generator questions not loaded from', gutil.colors.cyan(file));
           options.data = {};
           cb();
         }
@@ -97,34 +100,42 @@ program
         solis.generate({
           quiet: !!options.quiet,
           dest: options.output || process.cwd(),
-          src: path.join(options.templates, options.module),
-          module: options.module,
+          src: options.src,
           data: options.data,
-        });
-        cb();
+        }, cb);
       },
     ];
 
-    if (!options.module) {
+    // check if template is github repo or not
+    if (options.name.indexOf('/') === -1) {
+      options.src = path.join(options.templates, options.name);
       series.unshift(function(cb) {
-        var choices = fs.readdirSync(options.templates);
-        inquirer.prompt([{
-          type: 'list',
-          name: 'module',
-          message: 'What do you want to generate:',
-          choices: choices,
-        }], function(answers) {
-          options.module = answers.module;
+        // check if template exists
+        try {
+          fs.statSync(path.join(options.templates, options.name));
+        } catch (e) {
+          gutil.log('Error', gutil.colors.red(options.name), 'template does not exist');
+          process.exit(1);
+        }
+        cb();
+      });
+    } else {
+      options.src = path.join(process.cwd(), '.template');
+      series.unshift(function(cb) {
+        download(options.name, options.src, function(err) {
+          if (err) throw err;
           cb();
         });
       });
-    } else {
-      try {
-        fs.statSync(path.join(options.templates, mod));
-      } catch (e) {
-        gutil.log('Error', gutil.colors.red(mod), 'template does not exist');
-        process.exit(1);
-      }
+      series.push(function(cb) {
+        del(options.src)
+          .then(function() {
+            cb();
+          })
+          .catch(function(error) {
+            throw error;
+          });
+      })
     }
 
     async.series(series);
