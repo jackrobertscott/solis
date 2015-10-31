@@ -120,7 +120,7 @@ program
         cb();
       });
     } else {
-      options.src = path.join(process.cwd(), '.template');
+      options.src = path.join(process.cwd(), '.solis-gh-download');
       series.unshift(function(cb) {
         download(options.name, options.src, function(err) {
           if (err) throw err;
@@ -135,7 +135,7 @@ program
           .catch(function(error) {
             throw error;
           });
-      })
+      });
     }
 
     async.series(series);
