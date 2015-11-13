@@ -16,6 +16,9 @@
   // Allow ES6.
   "esnext": true,
 
+  // Allow mocha
+  "mocha": true,
+
   /*
    * ENFORCING OPTIONS
    * =================

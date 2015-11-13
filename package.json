@@ -4,8 +4,7 @@
   "description": "Static site server and generator with built-in preprocessing",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test",
-    "test:watch": "npm run test -- -w"
+    "test": "mocha"
   },
   "bin": "./bin/solis",
   "repository": {
