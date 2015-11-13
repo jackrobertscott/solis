@@ -2,11 +2,14 @@
   "name": "solis",
   "version": "0.1.0",
   "description": "Static site server and generator with built-in preprocessing",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "mocha"
+    "build": "babel src -d lib --presets es2015",
+    "test": "npm run build && mocha"
   },
-  "bin": "./bin/solis",
+  "bin": {
+    "solis": "bin/solis"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jackrobertscott/solis.git"
@@ -62,6 +65,7 @@
     "wrench": "^1.5.8"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.1.2",
     "chai": "^3.3.0",
     "mocha": "^2.3.3"
   }
