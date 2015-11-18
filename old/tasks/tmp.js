@@ -202,7 +202,7 @@ sip.task('coffee', function(opts) {
  * @param {string} opts.tmp - serve directory
  * @param {boolean} opts.sourcemaps - wether to include sourcemaps
  */
-sip.task('coffee', function(opts) {
+sip.task('es6', function(opts) {
   return sip.src(helpers.removeHidden(opts.src, 'es6'))
     .pipe(plumber(helpers.plumb))
     .pipe(gulpif(!!opts.sourcemaps, sourcemaps.init()))
