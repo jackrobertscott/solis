@@ -1,8 +1,0 @@
-extends ../_layout
-
-block title
-  ${name}
-
-block content
-  each val, key in base['${section}']
-    != partial('${section}/' + key + '/_partial.jade')

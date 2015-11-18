@@ -1,8 +1,0 @@
-{
-  "questions": [{
-    "type": "input",
-    "name": "name",
-    "message": "What is the name of your project:",
-    "default": "example-name"
-  }]
-}

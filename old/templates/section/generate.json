@@ -1,8 +1,0 @@
-{
-  "questions": [{
-    "type": "input",
-    "name": "section",
-    "message": "What is the name of your section:",
-    "default": "example-section"
-  }]
-}
