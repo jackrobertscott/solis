@@ -1,6 +1,6 @@
 {
   "name": "solis",
-  "version": "0.1.0",
+  "version": "3.0.0",
   "description": "Task running utilities for website development",
   "main": "lib/index.js",
   "scripts": {
