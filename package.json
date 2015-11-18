@@ -28,5 +28,9 @@
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-babel": "^6.1.0",
     "mocha": "^2.3.4"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "solis-registry": "^0.1.0"
   }
 }
